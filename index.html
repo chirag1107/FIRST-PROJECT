@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPIDYY – Into the Spider-Verse</title>
+  <meta name="description" content="SPIDYY – Dive into the world of Spider-Man. Explore the history, villains, and gallery of your friendly neighbourhood spider hero." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- WEB CURSOR TRAIL -->
+  <canvas id="webCanvas"></canvas>
+
+  <!-- ── VIDEO MODAL ── -->
+  <div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-label="Power video">
+    <div class="vm-backdrop" id="vmBackdrop"></div>
+    <div class="vm-container">
+      <button class="vm-close" id="vmClose" aria-label="Close video">✕</button>
+      <div class="vm-header">
+        <span class="vm-icon" id="vmIcon"></span>
+        <div>
+          <h3 class="vm-title" id="vmTitle"></h3>
+          <p class="vm-sub" id="vmSub"></p>
+        </div>
+      </div>
+      <div class="vm-player">
+        <iframe id="vmIframe"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="Spider-Man Power Video">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOADING SCREEN ── -->
+  <div id="loader">
+    <div class="loader-web">
+      <div class="loader-spinner">
+        <svg class="loader-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(220,0,0,0.15)" stroke-width="2"/>
+          <circle cx="100" cy="100" r="85" fill="none" stroke="#e00" stroke-width="2"
+            stroke-dasharray="534" stroke-dashoffset="534" class="loader-arc"/>
+          <g stroke="#e00" stroke-width="1" fill="none" opacity="0.4">
+            <line x1="100" y1="15" x2="100" y2="185"/>
+            <line x1="15" y1="100" x2="185" y2="100"/>
+            <line x1="35" y1="35" x2="165" y2="165"/>
+            <line x1="165" y1="35" x2="35" y2="165"/>
+            <ellipse cx="100" cy="100" rx="40" ry="40"/>
+            <ellipse cx="100" cy="100" rx="65" ry="65"/>
+          </g>
+          <circle cx="100" cy="100" r="5" fill="#e00" class="loader-center-dot"/>
+        </svg>
+      </div>
+      <div class="loader-brand">
+        <span class="loader-spider">🕷</span>
+        <span class="loader-text">SPIDYY</span>
+      </div>
+      <div class="loader-progress">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <span class="logo-spider">🕷</span>
+      <span class="logo-text">SPIDYY</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"     class="nav-link active">Home</a></li>
+      <li><a href="#about"    class="nav-link">About Us</a></li>
+      <li><a href="#history"  class="nav-link">History</a></li>
+      <li><a href="#villains" class="nav-link">Villains</a></li>
+      <li><a href="#gallery"  class="nav-link">Spidy's Gallery</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════
+       HERO SECTION
+  ══════════════════════════════ -->
+  <section id="home" class="hero-section">
+    <!-- Animated web SVG background -->
+    <svg class="hero-web-svg" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.1">
+        <line x1="720" y1="-50" x2="0"    y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="240"  y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="480"  y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="720"  y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="960"  y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="1200" y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <line x1="720" y1="-50" x2="1440" y2="950" stroke="#e00" stroke-width="1.5" class="web-line"/>
+        <ellipse cx="720" cy="-50" rx="220"  ry="165"  fill="none" stroke="#e00" stroke-width="1" class="web-ring"/>
+        <ellipse cx="720" cy="-50" rx="430"  ry="320"  fill="none" stroke="#e00" stroke-width="1" class="web-ring"/>
+        <ellipse cx="720" cy="-50" rx="640"  ry="480"  fill="none" stroke="#e00" stroke-width="1" class="web-ring"/>
+        <ellipse cx="720" cy="-50" rx="850"  ry="637"  fill="none" stroke="#e00" stroke-width="1" class="web-ring"/>
+        <ellipse cx="720" cy="-50" rx="1060" ry="795"  fill="none" stroke="#e00" stroke-width="1" class="web-ring"/>
+      </g>
+    </svg>
+
+    <div id="particles" class="particles-container"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot pulsing"></span>
+        <span>YOUR FRIENDLY NEIGHBOURHOOD</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="glitch-text" data-text="SPIDYY">SPIDYY</span>
+        <span class="title-sub">Into the Spider-Verse</span>
+      </h1>
+      <p class="hero-desc">
+        Dive into the thrilling world of Spider-Man, where you hold onto the fate of New York. Navigate the rooftops, swing from the tallest towers, and unravel the conspiracy threatening the city you love.
+      </p>
+      <div class="hero-btns">
+        <a href="#about" class="btn btn-primary">
+          <span>Enter Spider-Verse</span>
+          <span class="btn-icon">🕸</span>
+        </a>
+        <a href="#gallery" class="btn btn-ghost">
+          <span>View Gallery</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image-wrapper">
+      <div class="hero-glow-ring r1"></div>
+      <div class="hero-glow-ring r2"></div>
+      <img src="PETER.jpg" alt="Spider-Man hero" class="hero-img" id="heroImg" />
+      <div class="floating-web-lines">
+        <div class="fwl fwl1"></div>
+        <div class="fwl fwl2"></div>
+        <div class="fwl fwl3"></div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>SCROLL DOWN</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STATS BAR
+  ══════════════════════════════ -->
+  <section class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" data-target="60">0</span><span class="stat-suffix">+</span>
+      <span class="stat-label">Years of Legacy</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="100">0</span><span class="stat-suffix">+</span>
+      <span class="stat-label">Villains Defeated</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="500">0</span><span class="stat-suffix">M+</span>
+      <span class="stat-label">Fans Worldwide</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="40">0</span><span class="stat-suffix">+</span>
+      <span class="stat-label">Comic Series</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       ABOUT SECTION
+  ══════════════════════════════ -->
+  <section id="about" class="about-section section">
+    <div class="section-glow left"></div>
+    <div class="about-container">
+      <div class="about-image-col reveal-left">
+        <div class="about-img-wrapper">
+          <img src="AMAZZING.jpg" alt="Spider-Man" class="about-img" />
+          <div class="about-img-border"></div>
+          <div class="about-tag">
+            <span>🕷</span>
+            <span>Peter Parker</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content-col reveal-right">
+        <div class="section-badge">
+          <span class="badge-dot pulsing"></span>
+          <span>ABOUT</span>
+        </div>
+        <h2 class="section-title">The <span class="text-red">Amazing</span><br/>Spider-Man</h2>
+        <p class="about-text">
+          Spider-Man was created by writer-editor Stan Lee and writer-artist Steve Ditko. He first appeared in Amazing Fantasy #15, published by Marvel Comics in 1962 — a high-school student who gained spider-like superpowers after being bitten by a radioactive spider.
+        </p>
+        <p class="about-text">
+          <em>"With great power comes great responsibility."</em> — this principle guides Peter Parker as New York City's masked protector.
+        </p>
+
+        <!-- ── POWER CARDS — click to watch video ── -->
+        <div class="powers-grid">
+          <div class="power-card" id="power-webshoot"
+               data-video="kOVMsNE6_Hg"
+               data-title="Web Shooting"
+               data-sub="Organic &amp; Mechanical Webs"
+               data-icon="🕸">
+            <div class="power-card-icon">🕸</div>
+            <div class="power-card-body">
+              <strong>Web Shooting</strong>
+              <span>Organic &amp; mechanical webs</span>
+            </div>
+            <div class="power-card-play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18"><path d="M8 5v14l11-7z"/></svg>
+              <span>WATCH</span>
+            </div>
+            <div class="power-card-glow"></div>
+          </div>
+
+          <div class="power-card" id="power-strength"
+               data-video="7vTsD3YSQPI"
+               data-title="Super Strength"
+               data-sub="10 Tons of Force"
+               data-icon="⚡">
+            <div class="power-card-icon">⚡</div>
+            <div class="power-card-body">
+              <strong>Super Strength</strong>
+              <span>10 tons of force</span>
+            </div>
+            <div class="power-card-play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18"><path d="M8 5v14l11-7z"/></svg>
+              <span>WATCH</span>
+            </div>
+            <div class="power-card-glow"></div>
+          </div>
+
+          <div class="power-card" id="power-sense"
+               data-video="VxJ3RUqkdNY"
+               data-title="Spider-Sense"
+               data-sub="360° Danger Awareness"
+               data-icon="🕷">
+            <div class="power-card-icon">🕷</div>
+            <div class="power-card-body">
+              <strong>Spider-Sense</strong>
+              <span>360° danger awareness</span>
+            </div>
+            <div class="power-card-play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18"><path d="M8 5v14l11-7z"/></svg>
+              <span>WATCH</span>
+            </div>
+            <div class="power-card-glow"></div>
+          </div>
+
+          <div class="power-card" id="power-wallcrawl"
+               data-video="Ak-t2YDzmKQ"
+               data-title="Wall-Crawling"
+               data-sub="Any Surface, Any Angle"
+               data-icon="🧲">
+            <div class="power-card-icon">🧲</div>
+            <div class="power-card-body">
+              <strong>Wall-Crawling</strong>
+              <span>Any surface, any angle</span>
+            </div>
+            <div class="power-card-play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18"><path d="M8 5v14l11-7z"/></svg>
+              <span>WATCH</span>
+            </div>
+            <div class="power-card-glow"></div>
+          </div>
+        </div>
+
+        <a href="#history" class="btn btn-primary mt-20">Explore History</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       HISTORY SECTION  — fully redesigned
+  ══════════════════════════════ -->
+  <section id="history" class="history-section section">
+    <div class="section-glow right"></div>
+    <div class="section-header">
+      <div class="section-badge center">
+        <span class="badge-dot pulsing"></span>
+        <span>HISTORY</span>
+      </div>
+      <h2 class="section-title center">Spider-Man <span class="text-red">Through the Ages</span></h2>
+      <p class="section-desc center">Six decades of legacy — from a comic book panel to a multiverse phenomenon</p>
+    </div>
+
+    <div class="hist-cards">
+
+      <!-- 1962 -->
+      <div class="hist-card reveal-up" data-delay="0">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc1">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#3d0000"/>
+                  <stop offset="100%" stop-color="#0a0000"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g1)"/>
+              <!-- Comic dots pattern -->
+              <g fill="#cc0000" opacity="0.2">
+                <circle cx="30" cy="30" r="3"/><circle cx="60" cy="30" r="3"/><circle cx="90" cy="30" r="3"/>
+                <circle cx="120" cy="30" r="3"/><circle cx="150" cy="30" r="3"/><circle cx="180" cy="30" r="3"/>
+                <circle cx="210" cy="30" r="3"/><circle cx="240" cy="30" r="3"/><circle cx="270" cy="30" r="3"/>
+                <circle cx="30" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="90" cy="60" r="3"/>
+                <circle cx="120" cy="60" r="3"/><circle cx="150" cy="60" r="3"/><circle cx="180" cy="60" r="3"/>
+                <circle cx="210" cy="60" r="3"/><circle cx="240" cy="60" r="3"/><circle cx="270" cy="60" r="3"/>
+              </g>
+              <!-- Spider -->
+              <g transform="translate(150,100)" stroke="#e00" stroke-width="1.5" fill="none">
+                <ellipse rx="18" ry="12"/>
+                <ellipse ry="8" rx="10" transform="translate(0,-20)"/>
+                <line x1="-30" y1="-20" x2="-60" y2="-35"/>
+                <line x1="-30" y1="0" x2="-60" y2="5"/>
+                <line x1="-30" y1="15" x2="-60" y2="30"/>
+                <line x1="30" y1="-20" x2="60" y2="-35"/>
+                <line x1="30" y1="0" x2="60" y2="5"/>
+                <line x1="30" y1="15" x2="60" y2="30"/>
+              </g>
+              <!-- Web lines from center -->
+              <g stroke="#cc0000" stroke-width="0.5" opacity="0.4">
+                <line x1="150" y1="0" x2="0" y2="200"/>
+                <line x1="150" y1="0" x2="75" y2="200"/>
+                <line x1="150" y1="0" x2="150" y2="200"/>
+                <line x1="150" y1="0" x2="225" y2="200"/>
+                <line x1="150" y1="0" x2="300" y2="200"/>
+                <ellipse cx="150" cy="0" rx="60" ry="60"/>
+                <ellipse cx="150" cy="0" rx="110" ry="110"/>
+                <ellipse cx="150" cy="0" rx="160" ry="160"/>
+              </g>
+              <text x="150" y="185" text-anchor="middle" fill="#e00" font-family="serif" font-size="11" font-style="italic">Amazing Fantasy #15 — 1962</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">1962</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">The Birth of Spider-Man</h3>
+          <p class="hist-card-text">Peter Parker first appeared in <em>Amazing Fantasy #15</em>, created by Stan Lee and Steve Ditko. A radioactive spider bite changed a shy science nerd into the world's greatest superhero.</p>
+          <div class="hist-tag">🕸 Comic Origin</div>
+        </div>
+      </div>
+
+      <!-- 1977 -->
+      <div class="hist-card reveal-up" data-delay="100">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc2">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#1a1a00"/>
+                  <stop offset="100%" stop-color="#060600"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g2)"/>
+              <!-- TV screen frame -->
+              <rect x="60" y="30" width="180" height="120" rx="8" fill="none" stroke="#888" stroke-width="3"/>
+              <rect x="68" y="38" width="164" height="104" rx="4" fill="#111"/>
+              <!-- TV scan lines -->
+              <g stroke="#444" stroke-width="0.5" opacity="0.4">
+                <line x1="68" y1="50" x2="232" y2="50"/>
+                <line x1="68" y1="62" x2="232" y2="62"/>
+                <line x1="68" y1="74" x2="232" y2="74"/>
+                <line x1="68" y1="86" x2="232" y2="86"/>
+                <line x1="68" y1="98" x2="232" y2="98"/>
+                <line x1="68" y1="110" x2="232" y2="110"/>
+                <line x1="68" y1="122" x2="232" y2="122"/>
+                <line x1="68" y1="134" x2="232" y2="134"/>
+              </g>
+              <!-- Spider-Man silhouette on screen -->
+              <g transform="translate(150,80)" fill="#cc2200" opacity="0.8">
+                <circle cx="0" cy="-25" r="12"/>
+                <rect x="-10" y="-13" width="20" height="30" rx="4"/>
+                <!-- Web arm -->
+                <path d="M-10,-10 Q-40,-20 -55,-10" stroke="#cc2200" fill="none" stroke-width="2"/>
+                <path d="M10,-10 Q40,-20 55,-10" stroke="#cc2200" fill="none" stroke-width="2"/>
+              </g>
+              <rect x="130" y="155" width="40" height="8" rx="3" fill="#666"/>
+              <text x="150" y="185" text-anchor="middle" fill="#aaa" font-family="monospace" font-size="10">CBS TELEVISION — 1977</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">1977</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">Live-Action TV Debut</h3>
+          <p class="hist-card-text">Spider-Man made his first live-action appearance on CBS Television. Nicholas Hammond portrayed Peter Parker, bringing the web-slinger to millions of American homes.</p>
+          <div class="hist-tag">📺 Television</div>
+        </div>
+      </div>
+
+      <!-- 2002 -->
+      <div class="hist-card reveal-up" data-delay="200">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc3">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g3" cx="50%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#001a33"/>
+                  <stop offset="100%" stop-color="#000508"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g3)"/>
+              <!-- City buildings -->
+              <rect x="0"   y="80"  width="35"  height="120" fill="#0a1520"/>
+              <rect x="40"  y="55"  width="45"  height="145" fill="#0d1c2e"/>
+              <rect x="90"  y="90"  width="30"  height="110" fill="#0a1520"/>
+              <rect x="185" y="60"  width="50"  height="140" fill="#0d1c2e"/>
+              <rect x="240" y="85"  width="35"  height="115" fill="#0a1520"/>
+              <rect x="270" y="50"  width="30"  height="150" fill="#0d1c2e"/>
+              <!-- Building windows -->
+              <g fill="#ffdd88" opacity="0.5">
+                <rect x="45" y="65" width="5" height="6"/><rect x="55" y="65" width="5" height="6"/>
+                <rect x="65" y="65" width="5" height="6"/><rect x="75" y="65" width="5" height="6"/>
+                <rect x="45" y="78" width="5" height="6"/><rect x="65" y="78" width="5" height="6"/>
+                <rect x="190" y="70" width="5" height="6"/><rect x="200" y="70" width="5" height="6"/>
+                <rect x="215" y="70" width="5" height="6"/><rect x="225" y="70" width="5" height="6"/>
+              </g>
+              <!-- Spider-Man swinging figure -->
+              <g transform="translate(150,60)">
+                <path d="M0,0 Q-60,30 -90,70" stroke="#e00" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <circle cx="0" cy="0" r="8" fill="#cc2200"/>
+                <path d="M-6,0 Q0,20 6,0" fill="#cc2200" stroke="#aa1100" stroke-width="0.5"/>
+              </g>
+              <!-- Stars -->
+              <g fill="white" opacity="0.4">
+                <circle cx="20" cy="15" r="1"/><circle cx="45" cy="8" r="0.8"/>
+                <circle cx="90" cy="20" r="1"/><circle cx="200" cy="12" r="0.8"/>
+                <circle cx="260" cy="18" r="1"/>
+              </g>
+              <text x="150" y="190" text-anchor="middle" fill="#4488cc" font-family="serif" font-size="11" font-style="italic">Sam Raimi's Spider-Man — 2002</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">2002</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">Sam Raimi's Trilogy Begins</h3>
+          <p class="hist-card-text">Tobey Maguire swings onto the big screen in Sam Raimi's blockbuster that redefined superhero cinema. The trilogy grossed over $2.5 billion worldwide and cemented Spider-Man as a cultural icon.</p>
+          <div class="hist-tag">🎬 Cinema</div>
+        </div>
+      </div>
+
+      <!-- 2012 -->
+      <div class="hist-card reveal-up" data-delay="300">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc4">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g4" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#001833"/>
+                  <stop offset="100%" stop-color="#000305"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g4)"/>
+              <!-- Rain streaks -->
+              <g stroke="#224466" stroke-width="0.5" opacity="0.4">
+                <line x1="20" y1="0" x2="10" y2="200"/>
+                <line x1="55" y1="0" x2="45" y2="200"/>
+                <line x1="90" y1="0" x2="80" y2="200"/>
+                <line x1="130" y1="0" x2="120" y2="200"/>
+                <line x1="170" y1="0" x2="160" y2="200"/>
+                <line x1="210" y1="0" x2="200" y2="200"/>
+                <line x1="250" y1="0" x2="240" y2="200"/>
+                <line x1="285" y1="0" x2="275" y2="200"/>
+              </g>
+              <!-- Suit emblem glow -->
+              <circle cx="150" cy="95" r="60" fill="none" stroke="#0066cc" stroke-width="1" opacity="0.3"/>
+              <circle cx="150" cy="95" r="40" fill="none" stroke="#0088ff" stroke-width="1" opacity="0.4"/>
+              <!-- Spider symbol -->
+              <g transform="translate(150,95)" fill="#0077dd" opacity="0.9">
+                <ellipse rx="10" ry="6"/>
+                <ellipse rx="7" ry="5" transform="translate(0,-14)"/>
+                <line x1="-20" y1="-8" x2="-40" y2="-20" stroke="#0077dd" stroke-width="1.5"/>
+                <line x1="-20" y1="0" x2="-40" y2="4" stroke="#0077dd" stroke-width="1.5"/>
+                <line x1="-20" y1="10" x2="-40" y2="18" stroke="#0077dd" stroke-width="1.5"/>
+                <line x1="20" y1="-8" x2="40" y2="-20" stroke="#0077dd" stroke-width="1.5"/>
+                <line x1="20" y1="0" x2="40" y2="4" stroke="#0077dd" stroke-width="1.5"/>
+                <line x1="20" y1="10" x2="40" y2="18" stroke="#0077dd" stroke-width="1.5"/>
+              </g>
+              <text x="150" y="188" text-anchor="middle" fill="#4499dd" font-family="serif" font-size="11">The Amazing Spider-Man — 2012</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">2012</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">The Amazing Spider-Man</h3>
+          <p class="hist-card-text">Andrew Garfield took on the mantle, bringing a new era with a fresh emotional take on Peter Parker's origins. A darker, more complex portrayal resonated with a new generation of fans.</p>
+          <div class="hist-tag">🎥 Reboot Era</div>
+        </div>
+      </div>
+
+      <!-- 2016 -->
+      <div class="hist-card reveal-up" data-delay="400">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc5">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g5" cx="50%" cy="50%" r="60%">
+                  <stop offset="0%" stop-color="#1a0000"/>
+                  <stop offset="100%" stop-color="#050005"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g5)"/>
+              <!-- Shield shape (Avengers reference) -->
+              <circle cx="90" cy="100" r="45" fill="none" stroke="#cccccc" stroke-width="2" opacity="0.4"/>
+              <circle cx="90" cy="100" r="32" fill="none" stroke="#cc2200" stroke-width="2" opacity="0.5"/>
+              <circle cx="90" cy="100" r="16" fill="#cc2200" opacity="0.4"/>
+              <!-- MCU-style Iron Man -->
+              <g transform="translate(90,100)" fill="#cc8800" opacity="0.3">
+                <rect x="-8" y="-20" width="16" height="30" rx="3"/>
+                <rect x="-5" y="-28" width="10" height="10" rx="2"/>
+              </g>
+              <!-- Spider-Man small -->
+              <g transform="translate(195,80)" fill="#cc2200" opacity="0.9">
+                <circle cx="0" cy="-15" r="9"/>
+                <rect x="-7" y="-6" width="14" height="22" rx="3"/>
+                <line x1="0" y1="-15" x2="0" y2="-70" stroke="#cc2200" stroke-width="1.5" opacity="0.5"/>
+              </g>
+              <!-- Marvel logo text -->
+              <rect x="110" y="85" width="80" height="22" rx="3" fill="#cc2200" opacity="0.7"/>
+              <text x="150" y="101" text-anchor="middle" fill="white" font-family="sans-serif" font-size="10" font-weight="bold">MARVEL</text>
+              <text x="150" y="188" text-anchor="middle" fill="#cc4444" font-family="serif" font-size="11">Civil War — MCU Debut 2016</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">2016</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">MCU Integration</h3>
+          <p class="hist-card-text">Tom Holland debuted as Spider-Man in <em>Captain America: Civil War</em>, bringing Spidey into the Marvel Cinematic Universe and a whole new universe of possibilities and heroic team-ups.</p>
+          <div class="hist-tag">🦸 MCU</div>
+        </div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="hist-card reveal-up" data-delay="500">
+        <div class="hist-card-img">
+          <div class="hist-img-placeholder hc6">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <radialGradient id="g6" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#1a0040"/>
+                  <stop offset="100%" stop-color="#050010"/>
+                </radialGradient>
+              </defs>
+              <rect width="300" height="200" fill="url(#g6)"/>
+              <!-- Portal ring -->
+              <circle cx="150" cy="95" r="70" fill="none" stroke="#aa44ff" stroke-width="3" opacity="0.5" stroke-dasharray="10 4"/>
+              <circle cx="150" cy="95" r="55" fill="none" stroke="#6600cc" stroke-width="2" opacity="0.6"/>
+              <!-- Three spider figures -->
+              <g fill="#cc2200" opacity="0.8">
+                <!-- Left -->
+                <circle cx="105" cy="90" r="7"/>
+                <rect x="100" y="97" width="10" height="18" rx="2"/>
+              </g>
+              <g fill="#2244cc" opacity="0.8">
+                <!-- Center -->
+                <circle cx="150" cy="85" r="9"/>
+                <rect x="143" y="94" width="14" height="22" rx="2"/>
+              </g>
+              <g fill="#cc4400" opacity="0.8">
+                <!-- Right -->
+                <circle cx="195" cy="90" r="7"/>
+                <rect x="190" y="97" width="10" height="18" rx="2"/>
+              </g>
+              <!-- Energy particles -->
+              <g fill="#aa44ff" opacity="0.6">
+                <circle cx="60" cy="50" r="2"/><circle cx="240" cy="40" r="2"/>
+                <circle cx="45" cy="130" r="2"/><circle cx="255" cy="145" r="2"/>
+                <circle cx="90" cy="25" r="1.5"/><circle cx="210" cy="22" r="1.5"/>
+              </g>
+              <text x="150" y="188" text-anchor="middle" fill="#aa77ff" font-family="serif" font-size="11">No Way Home — Multiverse 2021</text>
+            </svg>
+          </div>
+          <div class="hist-year-badge">2021</div>
+        </div>
+        <div class="hist-card-body">
+          <h3 class="hist-card-title">No Way Home – Multiverse</h3>
+          <p class="hist-card-text">All three Spider-Men unite in the most epic crossover event in superhero history. <em>No Way Home</em> broke box office records worldwide and became a cultural phenomenon.</p>
+          <div class="hist-tag">🌌 Multiverse</div>
+        </div>
+      </div>
+
+    </div><!-- /hist-cards -->
+  </section>
+
+  <!-- ══════════════════════════════
+       PLATFORMS SECTION
+  ══════════════════════════════ -->
+  <section class="platforms-section section">
+    <div class="platforms-content">
+      <div class="platform-col reveal-up">
+        <div class="date-label">SEPTEMBER 2020</div>
+        <div class="date-sub">PLAY FIRST ON</div>
+        <div class="platform-icons">
+          <div class="plat-icon">
+            <svg viewBox="0 0 50 50" fill="white" width="36"><path d="M25 2C12.3 2 2 12.3 2 25s10.3 23 23 23 23-10.3 23-23S37.7 2 25 2zm-5 7.5c2.8 1.2 5.8 3.8 8 7.2.8-1 1.5-1.8 2-2.3 3.2 2.7 5.5 6.5 6 10.8-1.5-2.3-4.5-5.5-7.8-7.2-.3 1.5-.5 3-.5 4.5 0 6.5 3.5 12.2 5 14-1.2.3-2.5.5-3.7.5-1.5 0-3-.2-4.3-.7 1.5-1.8 5-7.5 5-13.8 0-1.5-.2-3-.5-4.5-3.3 1.7-6.3 4.9-7.8 7.2.5-4.3 2.8-8.1 6-10.8.5.5 1.2 1.3 2 2.3 2.2-3.4 5.2-6 8-7.2z"/></svg>
+            <span>XBOX</span>
+          </div>
+        </div>
+      </div>
+      <div class="platform-divider"></div>
+      <div class="platform-col reveal-up" style="transition-delay:0.2s">
+        <div class="date-label">JUNE 2024</div>
+        <div class="date-sub">NOW ON ALL PLATFORMS</div>
+        <div class="platform-icons">
+          <div class="plat-icon">
+            <svg viewBox="0 0 50 50" fill="white" width="32"><path d="M19.5 38V12l4.5 1.5V34c3.5.8 6-1 6-5.5V12l4.5 1.5v17c0 7-5 10-15 7.5z"/></svg>
+            <span>PlayStation</span>
+          </div>
+          <div class="plat-icon">
+            <svg viewBox="0 0 50 50" fill="white" width="30"><path d="M5 5h18v18H5zm22 0h18v18H27zM5 27h18v18H5zm22 0h18v18H27z"/></svg>
+            <span>Windows</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       VILLAINS SECTION — real images
+  ══════════════════════════════ -->
+  <section id="villains" class="villains-section section">
+    <div class="section-glow center"></div>
+    <div class="section-header">
+      <div class="section-badge center">
+        <span class="badge-dot pulsing"></span>
+        <span>VILLAINS</span>
+      </div>
+      <h2 class="section-title center">Faces of <span class="text-red">Darkness</span></h2>
+      <p class="section-desc center">The rogues that define the legend</p>
+    </div>
+
+    <!-- Villain selector tabs -->
+    <div class="villain-tabs" id="villainTabs">
+      <button class="vtab active" data-vi="0">Doc Ock</button>
+      <button class="vtab" data-vi="1">Green Goblin</button>
+      <button class="vtab" data-vi="2">Electro</button>
+      <button class="vtab" data-vi="3">Venom</button>
+    </div>
+
+    <div class="villain-showcase" id="villainShowcase">
+
+      <!-- DOCTOR OCTOPUS -->
+      <div class="villain-panel active" data-vi="0">
+        <div class="vp-image-col">
+          <div class="vp-glow doc-ock-glow"></div>
+          <img src="villain_doc_ock.png" alt="Doctor Octopus" class="vp-img" />
+          <div class="vp-energy-ring"></div>
+        </div>
+        <div class="vp-info-col">
+          <div class="vp-number">01</div>
+          <div class="villain-tag">VILLAIN</div>
+          <h3 class="villain-name">Doctor Octopus</h3>
+          <p class="villain-alias">Otto Gunther Octavius</p>
+          <p class="villain-desc">A brilliant nuclear physicist whose lab accident fused four mechanical arms to his body, granting him fearsome cybernetic power. He founded the Sinister Six and remains one of Spider-Man's most dangerous and intellectual adversaries.</p>
+          <div class="vp-stats">
+            <div class="vp-stat"><span class="vps-label">Threat Level</span><div class="vps-bar"><div class="vps-fill" style="width:88%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Intelligence</span><div class="vps-bar"><div class="vps-fill" style="width:95%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Strength</span><div class="vps-bar"><div class="vps-fill" style="width:72%"></div></div></div>
+          </div>
+          <div class="villain-powers-list">
+            <span>Mechanical Arms</span>
+            <span>Genius Intellect</span>
+            <span>Nuclear Physics</span>
+            <span>Sinister Six Leader</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GREEN GOBLIN -->
+      <div class="villain-panel" data-vi="1">
+        <div class="vp-image-col">
+          <div class="vp-glow goblin-glow"></div>
+          <div class="vp-img goblin-css-art">
+            <!-- Advanced CSS art for Green Goblin -->
+            <div class="goblin-scene">
+              <div class="goblin-glider-platform">
+                <div class="glider-wing w-left"></div>
+                <div class="glider-body"></div>
+                <div class="glider-wing w-right"></div>
+                <div class="glider-thruster"></div>
+              </div>
+              <div class="goblin-figure">
+                <div class="goblin-head">
+                  <div class="goblin-mask">
+                    <div class="goblin-ear left"></div>
+                    <div class="goblin-ear right"></div>
+                    <div class="goblin-eye left"></div>
+                    <div class="goblin-eye right"></div>
+                    <div class="goblin-nose"></div>
+                    <div class="goblin-mouth-row">
+                      <div class="goblin-tooth"></div>
+                      <div class="goblin-tooth"></div>
+                      <div class="goblin-tooth"></div>
+                      <div class="goblin-tooth"></div>
+                    </div>
+                  </div>
+                  <div class="goblin-hat"></div>
+                </div>
+                <div class="goblin-body-main">
+                  <div class="goblin-shoulder left"></div>
+                  <div class="goblin-shoulder right"></div>
+                  <div class="goblin-chest-armor"></div>
+                </div>
+                <div class="goblin-arm left">
+                  <div class="goblin-bomb"></div>
+                </div>
+                <div class="goblin-arm right"></div>
+              </div>
+            </div>
+          </div>
+          <div class="vp-energy-ring goblin-ring"></div>
+        </div>
+        <div class="vp-info-col">
+          <div class="vp-number">02</div>
+          <div class="villain-tag">VILLAIN</div>
+          <h3 class="villain-name">Green Goblin</h3>
+          <p class="villain-alias">Norman Osborn</p>
+          <p class="villain-desc">A wealthy industrialist and founder of Oscorp who became the cackling Green Goblin after experimenting on himself with an unstable serum. He flew into Spider-Man's life on his pumpkin-bomb-laden glider and never left.</p>
+          <div class="vp-stats">
+            <div class="vp-stat"><span class="vps-label">Threat Level</span><div class="vps-bar"><div class="vps-fill" style="width:93%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Intelligence</span><div class="vps-bar"><div class="vps-fill" style="width:88%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Strength</span><div class="vps-bar"><div class="vps-fill" style="width:82%"></div></div></div>
+          </div>
+          <div class="villain-powers-list">
+            <span>Pumpkin Bombs</span>
+            <span>Glider Flight</span>
+            <span>Superhuman Strength</span>
+            <span>Serum Enhanced</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ELECTRO -->
+      <div class="villain-panel" data-vi="2">
+        <div class="vp-image-col">
+          <div class="vp-glow electro-glow"></div>
+          <img src="villain_electro.png" alt="Electro" class="vp-img" />
+          <div class="vp-energy-ring electro-ring"></div>
+        </div>
+        <div class="vp-info-col">
+          <div class="vp-number">03</div>
+          <div class="villain-tag">VILLAIN</div>
+          <h3 class="villain-name">Electro</h3>
+          <p class="villain-alias">Maxwell Dillon</p>
+          <p class="villain-desc">A former electrical engineer who was struck by lightning while repairing power lines, granting him the ability to generate and control electricity. He can channel millions of volts, travel at light speed through power lines, and overload any electrical system.</p>
+          <div class="vp-stats">
+            <div class="vp-stat"><span class="vps-label">Threat Level</span><div class="vps-bar"><div class="vps-fill" style="width:80%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Intelligence</span><div class="vps-bar"><div class="vps-fill" style="width:65%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Electricity</span><div class="vps-bar"><div class="vps-fill" style="width:100%"></div></div></div>
+          </div>
+          <div class="villain-powers-list">
+            <span>Electricity Control</span>
+            <span>Lightning Speed</span>
+            <span>Energy Absorption</span>
+            <span>Electromagnetic Flight</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VENOM -->
+      <div class="villain-panel" data-vi="3">
+        <div class="vp-image-col">
+          <div class="vp-glow venom-glow"></div>
+          <img src="villain_venom.png" alt="Venom" class="vp-img" />
+          <div class="vp-energy-ring venom-ring"></div>
+        </div>
+        <div class="vp-info-col">
+          <div class="vp-number">04</div>
+          <div class="villain-tag">VILLAIN</div>
+          <h3 class="villain-name">Venom</h3>
+          <p class="villain-alias">Eddie Brock + Klyntar Symbiote</p>
+          <p class="villain-desc">An alien symbiote merged with disgraced journalist Eddie Brock to create a dual entity of terrifying power. Venom is immune to Spider-Man's spider-sense, making him uniquely deadly. <em>We are Venom.</em></p>
+          <div class="vp-stats">
+            <div class="vp-stat"><span class="vps-label">Threat Level</span><div class="vps-bar"><div class="vps-fill" style="width:96%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Intelligence</span><div class="vps-bar"><div class="vps-fill" style="width:75%"></div></div></div>
+            <div class="vp-stat"><span class="vps-label">Strength</span><div class="vps-bar"><div class="vps-fill" style="width:98%"></div></div></div>
+          </div>
+          <div class="villain-powers-list">
+            <span>Symbiote Armor</span>
+            <span>Shapeshifting</span>
+            <span>Sense Immunity</span>
+            <span>Alien Tendrils</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /villain-showcase -->
+  </section>
+
+  <!-- ══════════════════════════════
+       GALLERY SECTION
+  ══════════════════════════════ -->
+  <section id="gallery" class="gallery-section section">
+    <div class="section-header">
+      <div class="section-badge center">
+        <span class="badge-dot pulsing"></span>
+        <span>SPIDY'S GALLERY</span>
+      </div>
+      <h2 class="section-title center">The <span class="text-red">Web</span> of Memories</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item gi-large reveal-up">
+        <img src="MAN.jpg" alt="Spider-Man on skyscraper" />
+        <div class="gallery-overlay"><span>NYC Rooftop</span></div>
+      </div>
+      <div class="gallery-item reveal-up" style="transition-delay:0.1s">
+        <img src="AMAZZING.jpg" alt="Spider-Man action" />
+        <div class="gallery-overlay"><span>Web Slinger</span></div>
+      </div>
+      <div class="gallery-item reveal-up" style="transition-delay:0.2s">
+        <img src="MERGE.jpg" alt="Spider-Man portrait" />
+        <div class="gallery-overlay"><span>The Guardian</span></div>
+      </div>
+      <div class="gallery-item reveal-up" style="transition-delay:0.3s">
+        <img src="villain_doc_ock.png" alt="Doctor Octopus" />
+        <div class="gallery-overlay"><span>Doctor Octopus</span></div>
+      </div>
+      <div class="gallery-item gi-wide reveal-up" style="transition-delay:0.4s">
+        <img src="villain_venom.png" alt="Venom" style="object-position:top"/>
+        <div class="gallery-overlay"><span>We Are Venom</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       FOOTER
+  ══════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-web-bg">
+      <svg viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.06">
+          <line x1="720" y1="0" x2="0"    y2="300" stroke="#e00" stroke-width="1"/>
+          <line x1="720" y1="0" x2="240"  y2="300" stroke="#e00" stroke-width="1"/>
+          <line x1="720" y1="0" x2="480"  y2="300" stroke="#e00" stroke-width="1"/>
+          <line x1="720" y1="0" x2="960"  y2="300" stroke="#e00" stroke-width="1"/>
+          <line x1="720" y1="0" x2="1200" y2="300" stroke="#e00" stroke-width="1"/>
+          <line x1="720" y1="0" x2="1440" y2="300" stroke="#e00" stroke-width="1"/>
+          <ellipse cx="720" cy="0" rx="300" ry="150" fill="none" stroke="#e00" stroke-width="1"/>
+          <ellipse cx="720" cy="0" rx="600" ry="300" fill="none" stroke="#e00" stroke-width="1"/>
+        </g>
+      </svg>
+    </div>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-spider" style="font-size:2rem">🕷</span>
+        <span class="logo-text" style="font-size:2.5rem">SPIDYY</span>
+      </div>
+      <p class="footer-tagline">"With great power comes great responsibility."</p>
+      <nav class="footer-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#history">History</a>
+        <a href="#villains">Villains</a>
+        <a href="#gallery">Gallery</a>
+      </nav>
+      <div class="footer-socials">
+        <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+        <a href="#" class="social-link" aria-label="Instagram">📸</a>
+        <a href="#" class="social-link" aria-label="YouTube">▶</a>
+        <a href="#" class="social-link" aria-label="Discord">💬</a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 SPIDYY. All Rights Reserved. Built with Node.js &amp; Pure CSS Animations.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="app.js"></script>
+</body>
+</html>
