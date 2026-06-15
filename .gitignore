@@ -2,3 +2,5 @@ node_modules/
 .gemini/
 .DS_Store
 Thumbs.db
+
+.vercel

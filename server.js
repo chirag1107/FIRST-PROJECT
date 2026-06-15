@@ -5,8 +5,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
-const HOST = 'localhost';
+const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0';
 
 // MIME type map
 const mimeTypes = {
@@ -69,7 +69,7 @@ server.listen(PORT, HOST, () => {
   console.log('  🕷  ╔══════════════════════════════════════╗');
   console.log('  🕸  ║           SPIDYY SERVER              ║');
   console.log('  🕷  ╠══════════════════════════════════════╣');
-  console.log(`  🕸  ║  Running at: http://${HOST}:${PORT}   ║`);
+  console.log(`  🕸  ║  Running at: http://localhost:${PORT}   ║`);
   console.log('  🕷  ║  Press Ctrl+C to stop                ║');
   console.log('  🕸  ╚══════════════════════════════════════╝');
   console.log('\n');

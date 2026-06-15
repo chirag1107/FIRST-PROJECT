@@ -7,7 +7,15 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["spidyy", "spider-man", "animated", "nodejs"],
+  "keywords": [
+    "spidyy",
+    "spider-man",
+    "animated",
+    "nodejs"
+  ],
   "author": "SPIDYY",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^54.13.0"
+  }
 }
